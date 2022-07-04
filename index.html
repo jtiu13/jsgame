@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissor JS Game</title>
+  <link rel="stylesheet" href="css/main.min.css">
+  <style>
+    .imgStyle img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+
+</head>
+<body> 
+  <div class="container mt-5">
+    <div class="row gy-2 bg-black justify-content-center" >
+      <h1 class="font-monospace text-center"><span style="color: yellow;">ROCK</span> <span style="color: red;">PAPER</span> <span style="color: green;">SCISSOR</span></h1>
+      <h2 class="text-white" id="displayWinner"></h2>
+
+      <!------------PLAYER 1--------------------------------------->
+      
+      <div class="col-lg-3 col-xsm-12">
+        <div class="card">
+          <div class="card-header text-white" style="background-color: burlywood;">
+            <h1 class="text-center" id="playerName">HELLO</h1>
+            <h2 class="fs-6 text-center" id="displayPlayerHand"></h2>
+          </div>
+          <div class="imgStyle" id="playerHand"><img src="images/ivana.jpg" alt="ivana"></div>
+          <div class="card-footer d-flex justify-content-center" style="background-color: #FBAEE3;">
+            <div class="pe-5">Wins:<span id="playerWins"></span></div>
+            <div>Loss:<span id="playerLosses"></span></div>
+           </div> 
+        </div>
+      </div>
+      <!------------------END PLAYER 1----------------------------->
+
+      <!------------------GAME RESULT---------------------------->
+      <div class="col-lg-3 col-xsm-12">
+       <div class="card bg-light" style="height:auto;">
+        <div class="card-header">
+          <h1 class="fs-4 text-center" id="playerName">GAME RESULTS</h1>
+        </div>
+        <h1 class="text-center" id="displayResult"></h1>
+        <ul class="fs-5 me-4" style="list-style: none; text-align: center;" id="matchHistory"></ul>
+       </div> 
+      </div>
+      <!--------------------END--------------------------------->
+
+      <!----------------BOT PLAYER----------------------------->
+      <div class="col-lg-3 col-xsm-12">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="text-center" id="botName">SAITAMA</h1>
+            <h2 class="fs-6 text-center" id="displayBotHand"></h2>
+          </div>
+          <div class="imgStyle" id="botPlayer"><img src="images/saitama.gif" alt="saitama" style="height: 300px;"></div>
+          <div class="card-footer d-flex justify-content-center" style="background-color: #FBAEE3;">
+            <div class="pe-5">Wins:<span id="saitamaWins"></span></div>
+            <div>Loss:<span id="saitamaLosses"></span></div>
+          </div>
+        </div>
+      </div>
+      <!----------------END---------------------------------->
+
+      <!----------------BUTTONS------------------------------->
+      <div class="row justify-content-center pt-3 pb-3">
+        <button class="col btn btn-lg btn-warning text-white" onclick="rockFunction()">ROCK</button>
+        <button class="col btn btn-lg btn-danger" onclick="paperFunction()">PAPER</button>
+        <button class="col btn btn-lg btn-success" onclick="scissorFunction()">SCISSOR</button>
+      </div>
+      <!----------------END------------------------------------>
+
+    </div>
+  </div>
+
+  
+  <script>
+
+    
+    let botHand = ['ROCK', 'PAPER', 'SCISSOR'];
+    let pWinCount = 0;
+    let pLossCount = 0;
+    let bWinCount = 0;
+    let bLossCount = 0;
+    let newPlayer = document.getElementById('pName');
+    
+
+      function getPlayerName() {
+        document.getElementById('playerName').innerHTML = newPlayer;
+      }
+
+      //rock function
+      function rockFunction() {
+        
+        let i = Math.floor(Math.random() * 3);
+        document.getElementById('displayPlayerHand').innerHTML = "PLAYER 1 CHOOSE ROCK!";
+        document.getElementById('displayBotHand').innerHTML = "SAITAMA CHOOSE " + botHand[i] + "!";
+        let list = document.getElementById('matchHistory');
+        let li = document.createElement('li');
+        document.getElementById('playerHand').innerHTML = "<img src='images/therock.jpg'>";
+        
+
+        if (i == 0) {
+          
+          document.getElementById('displayResult').innerHTML = "Its A Tie!";
+          li.textContent = 'ROCK vs ROCK';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/therock.jpg'>"; 
+        } else if (i == 1) {
+          document.getElementById('displayResult').innerHTML = "SAITAMA WINS!";
+          li.textContent = 'ROCK vs PAPER';
+          li.style.color = 'red';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/paper.png'>";
+          pLossCount++;
+          document.getElementById('playerLosses').innerHTML = " " + pLossCount;
+          bWinCount++;
+          document.getElementById('saitamaWins').innerHTML = " " + bWinCount;
+        } else {
+          document.getElementById('displayResult').innerHTML = "YOU WIN!";
+          li.textContent = 'ROCK vs SCISSOR';
+          li.style.color = 'green';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/scissor.webp'>"; 
+          pWinCount++;
+          document.getElementById('playerWins').innerHTML = " " + pWinCount;
+          bLossCount++;
+          document.getElementById('saitamaLosses').innerHTML = " " + bLossCount;
+        }
+
+        }
+
+      //paper function
+      function paperFunction() {
+      
+        let i = Math.floor(Math.random() * 3);
+        document.getElementById('displayPlayerHand').innerHTML = "PLAYER 1 CHOOSE PAPER!";
+        document.getElementById('displayBotHand').innerHTML = "SAITAMA CHOOSE " + botHand[i] + "!";
+        let list = document.getElementById('matchHistory');
+        let li = document.createElement('li');
+        document.getElementById('playerHand').innerHTML = "<img src='images/paper.png'>";
+
+        if (i == 0) {
+          document.getElementById('displayResult').innerHTML = "YOU WIN!";
+          li.textContent = 'PAPER vs ROCK';
+          li.style.color = 'green';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/therock.jpg'>"; 
+          pWinCount++;
+          document.getElementById('playerWins').innerHTML = " " + pWinCount;
+          bLossCount++;
+          document.getElementById('saitamaLosses').innerHTML = " " + bLossCount;
+        } else if (i == 1) {
+          document.getElementById('displayResult').innerHTML = "Its A Tie!";
+          li.textContent = 'PAPER vs PAPER';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/paper.png'>";
+        } else {
+          document.getElementById('displayResult').innerHTML = 'SAITAMA WINS!';
+          li.textContent = 'PAPER vs SCISSOR';
+          li.style.color = 'red';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/scissor.webp'>";
+          pLossCount++;
+          document.getElementById('playerLosses').innerHTML = " " + pLossCount;
+          bWinCount++;
+          document.getElementById('saitamaWins').innerHTML = " " + bWinCount;
+        }
+
+      }
+
+        //scissor function
+        function scissorFunction() {
+        
+        let i = Math.floor(Math.random() * 3);
+        document.getElementById('displayPlayerHand').innerHTML = "PLAYER 1 CHOOSE SCISSOR!";
+        document.getElementById('displayBotHand').innerHTML = "SAITAMA CHOOSE " + botHand[i]; "!";
+        let list = document.getElementById('matchHistory');
+        let li = document.createElement('li');
+        document.getElementById('playerHand').innerHTML = "<img src='images/scissor.webp'>";
+
+        if (i == 0) {
+          document.getElementById('displayResult').innerHTML = 'SAITAMA WINS!';
+          li.textContent = 'SCISSOR vs ROCK';
+          li.style.color = "red";
+          list.appendChild(li);
+          document.getElementById.innerHTML('botPlayer').innerHTML = "<img src='images/therock.jpg'>";
+          pLossCount++;
+          document.getElementById('playerLosses').innerHTML = " " + pLossCount;
+          bWinCount++;
+          document.getElementById('saitamaWins').innerHTML = " " + bWinCount;
+        } else if (i == 1) {
+          document.getElementById('displayResult').innerHTML = 'YOU WIN!';
+          li.textContent = 'SCISSOR vs PAPER';
+          li.style.color = 'green';
+          li.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/paper.png'>";
+          pWinCount++;
+          document.getElementById('playerWins').innerHTML = " " + pWinCount;
+          bLossCount++;
+          document.getElementById('saitamaLosses').innerHTML = " " + bLossCount;
+        } else {
+          document.getElementById('displayResult').innerHTML = 'Its A Tie!';
+          li.textContent = 'SCISSOR vs SCISSOR';
+          list.appendChild(li);
+          document.getElementById('botPlayer').innerHTML = "<img src='images/scissor.webp'>";
+        }
+
+        }
+
+        if(pWinCount == 3) {
+          document.getElementById('displayWinner').innerHTML = 'PLAYER WINS THE GAME';
+        }
+
+  </script>
+
+
+</body>
+</html>
